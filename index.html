@@ -6,7 +6,26 @@
     <title>My Project</title>
 </head>
 <body>
-    <h1>Welcome to My Project</h1>
     <p>This is a sample project deployed to GitHub Pages.</p>
+    <script>
+        // Функція для завантаження результатів тестів
+        fetch('newman-results.json')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Вставка результатів тестів у HTML
+            const resultsDiv = document.createElement('div');
+            resultsDiv.innerHTML = `<h2>Test Results</h2><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            document.body.appendChild(resultsDiv);
+          })
+          .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+          });
+      </script>
+      
 </body>
 </html>
