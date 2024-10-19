@@ -5,10 +5,18 @@
   "scripts": {
     "tern-on-api": "cp mockApi/db_back_up.yaml mockApi/db_stage.yaml && npx yaml-server --hotReload=off --autoStart=off --port 3000 --database ./mockApi/db_stage.yaml"
   },
-  "keywords": ["api","mock","yaml-server","rest"],
+  "keywords": [
+    "api",
+    "mock",
+    "yaml-server",
+    "rest"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "yaml-server": "^1.10.0"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
   }
 }
