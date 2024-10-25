@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "81e2b960-6b1c-45d1-b3c8-94a32870dd2a",
+		"name": "store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39117580"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User IDs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Create array of user IDs\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let userIds = jsonData.map(user => user.id);\r",
+									"    \r",
+									"    console.log(\"User IDs array: \" + JSON.stringify(userIds));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}/1",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove user by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}/1",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Check Remove by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}/1",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains user ID\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"id\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"test\",\r\n    \"lastName\": \"test\",\r\n    \"email\": \"test.test@gmail.com\",\r\n    \"dateOfBirth\": \"2001-01-01\",\r\n    \"emailVerified\": false,\r\n    \"signUpDate\": \"2019-01-01\",\r\n    \"status\": \"active\",\r\n    \"level\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User data updated correctly\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.eql(\"Ilon\");\r",
+									"    pm.expect(jsonData.lastName).to.eql(\"Mask\");\r",
+									"    pm.expect(jsonData.email).to.eql(\"ilon.mask@gmail.com\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Ilon\",\r\n    \"lastName\": \"Mask\",\r\n    \"email\": \"ilon.mask@gmail.com\",\r\n    \"dateOfBirth\": \"2001-10-10\",\r\n    \"emailVerified\": true,\r\n    \"signUpDate\": \"2019-08-24\",\r\n    \"status\": \"active\",\r\n    \"level\": \"lord\",\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Examples",
+			"item": [
+				{
+					"name": "Test Pagination",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test paginationTest pagination\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length).to.be.at.most(2);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}{{users}}{{queryPage}}1&pageSize=2",
+							"host": [
+								"{{baseUrl}}{{users}}{{queryPage}}1&pageSize=2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Sorting Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Sorting - Check sorting by email in descending order\", function () {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let isSorted = true;\r",
+									"\r",
+									"    for (let i = 1; i < jsonData.length; i++) {\r",
+									"        if (jsonData[i - 1].email < jsonData[i].email) {\r",
+									"            isSorted = false;\r",
+									"            break;\r",
+									"        }\r",
+									"    }\r",
+									"    pm.expect(isSorted).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}{{querySortOrder}}{{sortOrder}}&sortKey=email",
+							"host": [
+								"{{baseUrl}}{{users}}{{querySortOrder}}{{sortOrder}}&sortKey=email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Users Successful Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Users Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Users Server Error Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Users Response Time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let maxResponseTime = 200;\r",
+									"let responseTime = pm.response.responseTime;\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than \" + maxResponseTime + \"ms\", function () {\r",
+									"    pm.expect(responseTime).to.be.below(parseInt(maxResponseTime));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is \" + responseTime + \"ms\", function () {\r",
+									"    pm.expect(responseTime).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"console.log(\"Actual response time: \" + responseTime + \"ms\");\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test JSON Schema Validation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {\r",
+									"  \"type\": \"array\",\r",
+									"  \"items\": {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\": {\r",
+									"      \"id\": { \"type\": \"integer\" },\r",
+									"      \"firstName\": { \"type\": \"string\" },\r",
+									"      \"lastName\": { \"type\": \"string\" },\r",
+									"      \"email\": { \"type\": \"string\" },\r",
+									"      \"dateOfBirth\": { \"type\": \"string\", \"format\": \"date\" },\r",
+									"      \"emailVerified\": { \"type\": \"boolean\" },\r",
+									"      \"signUpDate\": { \"type\": \"string\", \"format\": \"date\" },\r",
+									"      \"status\": { \"type\": \"string\" },\r",
+									"      \"level\": { \"type\": \"string\" }\r",
+									"    },\r",
+									"    \"required\": [\"id\", \"firstName\", \"lastName\", \"email\"]\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate JSON schema\", function () {\r",
+									"  pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}{{users}}",
+							"host": [
+								"{{baseUrl}}{{users}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### 1\\. Test Pagination\n\n**Purpose:** To ensure that the pagination functionality of the users endpoint correctly limits the number of items returned in the response to the specified `pageSize`.\n\n**Key Steps:**\n\n- Send a GET request to `{{baseUrl}}{{users}}{{queryPage}}1&pageSize=2`.\n    \n- Verify that the number of items in the response does not exceed 2.\n    \n\n### 2\\. Test Sorting by Email\n\nStartFragment**Purpose:** To verify that the users endpoint can sort results by the `email` field in descending order. The variable `sortOrder` can be set to `ASC` for ascending order.EndFragment\n\n**Key Steps:**\n\n- Send a GET request to `{{baseUrl}}{{users}}{{querySortOrder}}{{sortOrder}}&sortKey=email`.\n    \n- Verify that the results are sorted by `email` in descending order.\n    \n\n### 3\\. Test Users Successful Request\n\n**Purpose:** To verify that a successful request to the users endpoint returns a status code of 200, indicating that the request was processed successfully.\n\n**Key Steps:**\n\n- Send a GET request to `{{baseUrl}}{{users}}`.\n    \n- Verify that the status code is 200.\n    \n\n### 4\\. Test Users Bad Request\n\n**Purpose:** To check that an invalid request returns a status code of 400, indicating a bad request due to incorrect parameters or malformed syntax.\n\n**Key Steps:**\n\n- Send a GET request with invalid parameters to `{{baseUrl}}{{users}}`.\n    \n- Verify that the status code is 400.\n    \n\n### 5\\. Test Users Server Error Request\n\n**Purpose:** To simulate a server error and verify that the endpoint returns a status code of 500, indicating an internal server error.\n\n**Key Steps:**\n\n- Send a GET request to `{{baseUrl}}{{users}}` with conditions that trigger a server error.\n    \n- Verify that the status code is 500.\n    \n\nEndFragment\n\nStartFragment\n\n### 6\\. Test Users Response Time\n\n**Purpose:** To ensure that the response time for the users endpoint is below a specified threshold, confirming the API’s performance efficiency. The actual response time can be viewed in the test results.\n\n**Key Steps:**\n\n- Send a GET request to `{{baseUrl}}{{users}}`.\n    \n- Verify that the response time is less than `{{maxResponseTime}}`.\n    \n- Log the actual response time.\n    \n\n### 7\\. Validate JSON Schema\n\n**Purpose:** To verify that the structure of the response data matches the predefined JSON schema, ensuring data consistency and integrity.\n\n**Key Steps:**\n\n- Send a GET request to `{{baseUrl}}{{users}}`.\n    \n- Validate the response against the defined JSON schema."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "users",
+			"value": "/users",
+			"type": "string"
+		},
+		{
+			"key": "queryPage",
+			"value": "?page=",
+			"type": "string"
+		},
+		{
+			"key": "querySortOrder",
+			"value": "?sortOrder=",
+			"type": "string"
+		},
+		{
+			"key": "sortOrder",
+			"value": "DESC",
+			"type": "string"
+		},
+		{
+			"key": "sortOrder",
+			"value": "ASC",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "maxRespTime",
+			"value": "200",
+			"type": "string"
+		}
+	]
+}
