@@ -2,16 +2,12 @@ name: Test-Build
 on:
   push:
     branches:
-      - gh-pages
+      - main
 jobs:
   test-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-# List files in the working directory to check the path
-      - name: List files
-        run: ls -R
 
 
       - name: Install Node
@@ -31,7 +27,7 @@ jobs:
 
       - name: Run POSTMAN collection
         run: |
-          newman run store.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
+          newman run example.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
 
       - name: Output the run Details
