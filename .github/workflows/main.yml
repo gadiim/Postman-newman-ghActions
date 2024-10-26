@@ -31,6 +31,9 @@ jobs:
         #  newman run example.postman_collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
 
+      - name: List files in testResults
+        run: ls -la testResults
+
       - name: Output the run Details
         uses: actions/upload-artifact@v3
         with:
@@ -42,17 +45,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: testResults
-
-      - name: Create gh-pages branch if not exists
-        run: |
-          git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages
-  
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: testResults
-          force_orphan: true
       #- name: Commit and Push Report
       #  run: |
       #    git add testResults/htmlreport.html
