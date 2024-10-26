@@ -2,7 +2,7 @@ name: Test-Build
 on:
   push:
     branches:
-      - gh-pages
+      - main
 jobs:
   test-api:
     runs-on: ubuntu-latest
