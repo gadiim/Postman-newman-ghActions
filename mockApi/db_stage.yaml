@@ -30,13 +30,4 @@ orders:
   - name: order5
     sku: 123425445656765
     id: 5
-users:
-  - firstName: Ilon
-    lastName: Mask
-    email: ilon.mask@gmail.com
-    dateOfBirth: 2001-10-10
-    emailVerified: true
-    signUpDate: 2019-08-24
-    status: active
-    level: lord
-    id: 1
+users: []
