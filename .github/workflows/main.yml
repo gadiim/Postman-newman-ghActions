@@ -27,12 +27,8 @@ jobs:
 
       - name: Run POSTMAN collection
         run: |
-          newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --suppress-exit-code
-        #  newman run example.postman_collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
-
-
-      - name: List files in testResults
-        run: ls -la testResults
+          newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
+        #  newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --suppress-exit-code
 
       - name: Output the run Details
         uses: actions/upload-artifact@v3
@@ -40,11 +36,6 @@ jobs:
           name: RunReports
           path: testResults
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: testResults
       #- name: Commit and Push Report
       #  run: |
       #    git add testResults/htmlreport.html
