@@ -29,8 +29,8 @@ jobs:
         run: |
           newman run petstore.collection.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --suppress-exit-code
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Output the run Details
+        uses: actions/upload-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: testResults
+            name: RunReports
+            path: testResults
